@@ -3,9 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var axios = require('axios').default;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const { response } = require('express');
 
 var app = express();
 
@@ -19,8 +21,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+async function httpRequest(){
+  try{
+    const url = "https://api.covid19india.org/v4/min/timeseries.min.json";
+    const response = await axios.get(url);
+    return response.data;
+    console.log(response);
+  }catch(error){
+    return error;
+    console.error(error);
+  }
+}
+
+var jsonData = {};
+
 app.get('/', function(req, res, next){
-  res.sendFile(path.join(__dirname, "/public/pages/home.html"))
+  httpRequest().then(function(val){
+    jsonData = JSON.stringify(val);
+    res.sendFile(path.join(__dirname, "/public/pages/home.html"));
+  })
+})
+
+app.get('/getCovidData', function(req, res, next){
+  res.send(jsonData);
 })
 
 // app.use('/', indexRouter);
