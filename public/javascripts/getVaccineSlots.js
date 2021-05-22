@@ -25,7 +25,7 @@ function onLoad() {
     ${parsedResponse.centers.map(function(slot) {
        return(
         `
-       <div class="Slot">
+       <div class="slot">
           <h3 class="slot-hosp-name">${slot.name}</h3>
        </div>
         `
@@ -81,6 +81,31 @@ function updateDistrictList() {
         districtList.innerHTML = districtList.innerHTML +
             '<option value="' + parsedResponse.districts[i]['district_id'] + '">' + parsedResponse.districts[i]['district_name'] + '</option>';
     }
+
+
 }
+
+const themeMap = {
+    dark: "light",
+    light: "solar",
+    solar: "dark"
+  };
+  
+  const theme = localStorage.getItem('theme')
+    || (tmp = Object.keys(themeMap)[0],
+        localStorage.setItem('theme', tmp),
+        tmp);
+  const bodyClass = document.body.classList;
+  bodyClass.add(theme);
+  
+  function toggleTheme() {
+    const current = localStorage.getItem('theme');
+    const next = themeMap[current];
+  
+    bodyClass.replace(current, next);
+    localStorage.setItem('theme', next);
+  }
+  
+  document.getElementById('themeButton').onclick = toggleTheme;
 
 
