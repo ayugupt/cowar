@@ -118,3 +118,11 @@ function onLoad(){
 function onError(){
     console.log("There is an error in getting the data");
 }
+
+function goToVaccine() {
+    window.location.href="vaccine.html";
+}
+
+function goToCovidPrediction() {
+    window.location.href="covidPredictor.html";
+}
