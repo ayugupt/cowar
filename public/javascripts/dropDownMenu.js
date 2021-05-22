@@ -22,7 +22,8 @@ class MapItem extends React.Component{
         this.updateStateValue = this.updateStateValue.bind(this);
     }
 
-    updateStateValue(){
+    updateStateValue(e){
+        e.preventDefault();
         document.getElementById("stateName").innerHTML = this.props.name;
         activeCasesStateData = [], totalCasesStateData=[], deathsStateData=[], recoveriesStateData=[]
         let maxConf = 0, deaths, recoveries, activeCases;
@@ -43,7 +44,7 @@ class MapItem extends React.Component{
                 }
 
                 activeCasesStateData.push(totalCasesStateData[totalCasesStateData.length-1]-recoveriesStateData[recoveriesStateData.length-1]-deathsStateData[deathsStateData.length-1]);
-                if(parsedResponse[this.props.name]["dates"][date]["total"]["confirmed"] > maxConf){
+                if(parsedResponse[this.props.name]["dates"][date]["total"]["confirmed"] >= maxConf){
                     maxConf = parsedResponse[this.props.name]["dates"][date]["total"]["confirmed"];
                     if("deceased" in parsedResponse[this.props.name]["dates"][date]["total"]){
                         deaths = parsedResponse[this.props.name]["dates"][date]["total"]["deceased"];
@@ -113,7 +114,7 @@ class MapItem extends React.Component{
 
     render(){
         return (<div className="dropDownMenuItem">
-            <a onClick={this.updateStateValue}>{this.props.name}</a>
+            <a href="#" onClick={this.updateStateValue}>{this.props.name}</a>
         </div>)
     }
 }

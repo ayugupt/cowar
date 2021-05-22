@@ -48,7 +48,7 @@ function onLoad(){
 
             activeCasesStateData.push(totalCasesStateData[totalCasesStateData.length-1]-recoveriesStateData[recoveriesStateData.length-1]-deathsStateData[deathsStateData.length-1]);
 
-            if(parsedResponse[stateList[0]]["dates"][date]["total"]["confirmed"] > maxConfState){
+            if(parsedResponse[stateList[0]]["dates"][date]["total"]["confirmed"] >= maxConfState){
                 maxConfState = parsedResponse[stateList[0]]["dates"][date]["total"]["confirmed"];
                 if("deceased" in parsedResponse[stateList[0]]["dates"][date]["total"]){
                     deathsState = parsedResponse[stateList[0]]["dates"][date]["total"]["deceased"];
@@ -85,7 +85,7 @@ function onLoad(){
 
             activeCasesData.push(totalCasesData[totalCasesData.length-1]-recoveriesData[recoveriesData.length-1]-deathsData[deathsData.length-1]);
 
-            if(parsedResponse["TT"]["dates"][date]["total"]["confirmed"] > maxConf){
+            if(parsedResponse["TT"]["dates"][date]["total"]["confirmed"] >= maxConf){
                 maxConf = parsedResponse["TT"]["dates"][date]["total"]["confirmed"];
                 if("deceased" in parsedResponse["TT"]["dates"][date]["total"]){
                     deaths = parsedResponse["TT"]["dates"][date]["total"]["deceased"];
