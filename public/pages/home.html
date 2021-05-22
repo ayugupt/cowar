@@ -11,6 +11,7 @@
             body{
                 font-family: 'Roboto', sans-serif;
                 background-color: #252526;
+                overflow-x: hidden;
             }
             .mainHolder{
                 display: flex;
@@ -19,7 +20,7 @@
                 justify-content: space-evenly;
             }
 
-            .mainCountry{
+            .main{
                 background-color: #1e1e1e;
                 width: 45%;
                 display: flex;
@@ -41,16 +42,68 @@
                 align-items: center;
                 font-size: 40px;
             }
+
+            .stateOption{
+                width: 50px;
+                position: relative;
+            }
+
+            .stateOption:hover .bar{
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .stateOption:hover .dropDownMenu{
+                opacity: 1;
+            }
+
+            .bar{
+                width: 0%;
+                margin-left: 50%; 
+                height: 5px;
+                background-color: red;
+                transition: linear width 0.1s, linear margin-left 0.1s;
+            }
+
+            .dropDownMenu{
+                background-color: lightblue;
+                position: absolute;
+                top: 200%;
+                left: 101vw;
+                overflow-y: scroll;
+                height: 300px;;
+            }
+
+            .dropDownMenuItem{
+                padding: 8px;
+                height: 50px;
+                width: 200px;
+                border-bottom: 2px solid lightcyan;
+            }
+
+            #plotHolder{
+                width: 100vw;
+                display: flex;
+                flex-flow: horizontal nowrap;
+                justify-content: space-evenly;
+            }
+
+            .plotWrapper{
+                width: 45vw;
+                height: 22.5vw;
+            }
+            
         </style>
 
         <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
         <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
         <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react-transition-group/4.3.0/react-transition-group.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3/dist/chart.min.js"></script>
     </head>
     <body>
         <div class="mainHolder">
-            <div class="mainCountry">
+            <div class="main">
                 <b>Country Data</b>
                 <div class="dataTile" style="color:white;">
                     <b>Total Cases</b>
@@ -69,7 +122,36 @@
                     <div id="deathsCountry"></div>
                 </div>
             </div>
+
+            <div class="main">
+                <div class="stateOption">
+                    <div id="stateName">State</div>
+                    <div class="bar"></div>
+                    <div class="menuHolder"></div>
+                </div>
+                <div class="dataTile" style="color:white;">
+                    <b>Total Cases</b>
+                    <div id="totalCasesState"></div>
+                </div>
+                <div class="dataTile" style="color:yellow;">
+                    <b>Active Cases</b>
+                    <div id="activeCasesState"></div>
+                </div>
+                <div class="dataTile" style="color:green;">
+                    <b>Recoveries</b>
+                    <div id="recoveriesState"></div>
+                </div>
+                <div class="dataTile" style="color:red;">
+                    <b>Deaths</b>
+                    <div id="deathsState"></div>
+                </div>
+            </div>
         </div>
-        <script src="../javascripts/getCovidData.js"></script>
+        <div id="plotHolder">
+            <div class="plotWrapper"><canvas id="plotCountry"></canvas></div>
+            <div class="plotWrapper"><canvas id="plotState"></canvas></div>
+        </div>
+        <script type="text/babel" src="../javascripts/dropDownMenu.js"></script>
+        <script type="text/babel" src="../javascripts/getCovidData.js"></script>
     </body>
 </html>
