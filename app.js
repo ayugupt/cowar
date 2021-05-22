@@ -42,6 +42,10 @@ app.get('/', function(req, res, next){
   })
 })
 
+app.get('/vaccine', function(req, res, next){
+  res.sendFile(path.join(__dirname, "/public/pages/vaccine.html"));
+})
+
 app.get('/getCovidData', function(req, res, next){
   res.send(jsonData);
 })
