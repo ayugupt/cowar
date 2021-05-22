@@ -42,7 +42,7 @@
           </a>
         </li>
   
-        <li class="nav-item">
+        <li class="nav-item" onclick="goToHome()">
           <a href="#" class="nav-link">
             <svg
               aria-hidden="true"
@@ -101,7 +101,7 @@
           </a>
         </li>
   
-        <li class="nav-item">
+        <li class="nav-item" onclick="goToCovidPrediction()">
           <a href="#" class="nav-link">
             <svg
               aria-hidden="true"
@@ -215,34 +215,61 @@
       <center>
         <h3 class="header">Check your nearest vaccination center and slots availability</h3>
         <br>
-        <button type="button" class="btn info" id="btnSearchPin">Search by PINCODE</button>
-        <button type="button" class="btn warning" id="btnSearchDistrict">Search by District</button>
+        <button type="button" class="btn info" id="btnSearchPin" onclick="selectByPin()">Search by PINCODE</button>
+        <button type="button" class="btn warning" id="btnSearchDistrict" onclick="selectByDistrict()">Search by District</button>
         <form><br>
-          <input type="number" class="input blue" id="pincode" name="pincode" placeholder="Pincode (ex: 211001)"><br>
-          <br/>
-          <input name="state" id="state" list="states" placeholder="Select State" onchange="getDistrictList(this)"><br/> 
-        <br/> <input name = "district" id="district" list="districts" placeholder="Select District">
-      </form> 
-      </center>
-      
-      
-          <datalist id="states"> 
-          </datalist>
-          <datalist id="districts">
-  
-          </datalist>
-  
-          <br/>
-          <button type="button" class="btn success" onclick="getVaccineSlots()">Search</button> 
-          <script src="../javascripts/getVaccineSlots.js"></script>  
-         
-  
-          <body>
-              <h3>Available Slots</h3>
-              <!-- table for showing data -->
-              <div id="availableSlots"></div>
+          <input type="number" class="input blue" id="pincode" name="pincode" placeholder="Pincode (ex: 211001)" minlength="6">
+          <input name="state" class="input orange" id="state" list="states" placeholder="Select State" onchange="getDistrictList(this)">
+          <input name = "district" class="input orange" id="district" list="districts" placeholder="Select District">
+      </form><br>
+      <datalist id="states"> </datalist>
+      <datalist id="districts"></datalist> 
 
+      <button type="button" class="btn success" onclick="getVaccineSlots()">Search</button> 
+      </center>
+          <script src="../javascripts/getVaccineSlots.js"></script>  
+          <body> 
+              <div id="availableSlots"></div>
     </main>
 
-  </body>        
+  </body>
+  
+  <div class="popup center">
+    <div class="icon">
+      <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      aria-hidden="true" 
+      focusable="false" 
+      data-prefix="fas" 
+      data-icon="info-circle" 
+      class="svg-inline--fa fa-info-circle fa-w-16" 
+      role="img" 
+      viewBox="0 0 512 512">
+      <path 
+      fill="currentColor" 
+      d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/>
+    </svg>
+    </div>
+    <div class="title">
+      Get notified once the slot becomes available
+    </div>
+    <div class="description">
+      Are you looking to book a slot for Covid-19 vaccination ?
+      Are you worried that the slots might get booked very quickly after they become available ?
+      Are you regularly checking the available slots ?
+      We have a solution to all your problem register your email id with us and we will notify you once the slots are available.
+    </div>
+    <div>
+      <input type="email" class="input blue" id="email" name="emailId" placeholder="Email Id"><br> <br>
+      <input type="pincode" class="input orange" id="pincode" name="pincode" placeholder="Pincode">
+    </div> 
+    <div class="dismiss-btn">
+      <button id="dismiss-popup-btn" onclick="dismissDialog()">
+        Dismiss
+      </button>
+      <button id="Register" onclick="registerForSlotNotification()">
+        Register
+      </button>
+    </div>
+  </div>
 </html>
