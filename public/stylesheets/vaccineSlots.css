@@ -1,29 +1,32 @@
 .slot {
-    outline: 5px dashed rgb(100, 8, 143);
+    outline: 5px outset rgb(100, 8, 143);
     background-color: transparent;
     width: auto;
     height: auto;
 }
 
 .slot-hosp-name {
-    
+    color: #000000;
+    font-size: larger;
 }
 
 .slot-hosp-address {
-
+    color: #576e75;
+    font-size: small;
 }
 
 .slot-hosp-slots-count {
-
-}
-
-.slot-date {
-
+    background-color: #04AA6D;
+    border-radius: 50px;
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
 .slot-filter-button {
 
 }
+
+
 
 .navbar {
   position: fixed;
@@ -253,3 +256,216 @@
     margin-left: 5rem;
     padding: 1rem;
   }
+
+.header {
+  align-items: center;
+  
+}
+
+.btn {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Green */
+.success {
+  border-color: #04AA6D;
+  color: green;
+}
+
+.success:hover {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Blue */
+.info {
+  border-color: #2196F3;
+  color: dodgerblue
+}
+
+.info:hover {
+  background: #2196F3;
+  color: white;
+}
+
+/* Orange */
+.warning {
+  border-color: #ff9800;
+  color: orange;
+}
+
+.warning:hover {
+  background: #ff9800;
+  color: white;
+}
+
+/* Red */
+.danger {
+  border-color: #f44336;
+  color: red
+}
+
+.danger:hover {
+  background: #f44336;
+  color: white;
+}
+
+/* Gray */
+.default {
+  border-color: #e7e7e7;
+  color: black;
+}
+
+.default:hover {
+  background: #e7e7e7;
+}
+
+.input {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.blue {
+  border-color: #2196F3;
+  color: dodgerblue
+}
+
+.orange {
+  border-color: #ff9800;
+  color: orange;
+}
+
+.green {
+  color: #00ffa2;
+  background: #ffffff;
+  margin: 10px;
+  border: 5px solid transparent;
+}
+.green:hover {
+  background: #dcfff2;
+  color: rgb(0, 255, 115);
+  
+}
+
+.red {
+  color: #f44336;
+  background: #ffffff;
+  margin: 10px;
+  border: 5px solid transparent;
+}
+
+.red:hover {
+  background: #ffe0de;
+  color: #ff0000;
+}
+
+body {
+  background:#ddd;
+  font-family:"Raleway";
+}
+.center {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}
+.popup {
+  width:400px;
+  height:500px;
+  padding:30px 20px;
+  background:#f5f5f5;
+  border-radius:10px;
+  box-sizing:border-box;
+  z-index:2;
+  text-align:center;
+  opacity:0;
+  top:-200%;
+  transform:translate(-50%,-50%) scale(0.5);
+  transition: opacity 300ms ease-in-out,
+              top 1000ms ease-in-out,
+              transform 1000ms ease-in-out;
+}
+.popup.active {
+  opacity:1;
+  top:50%;
+  transform:translate(-50%,-50%) scale(1);
+  transition: transform 300ms cubic-bezier(0.18,0.89,0.43,1.19);
+}
+.popup .icon {
+  margin:5px 0px;
+  width:50px;
+  height:50px;
+  border:2px solid #34f234;
+  text-align:center;
+  display:inline-block;
+  border-radius:50%;
+  line-height:60px;
+}
+.popup .icon i.fa {
+  font-size:30px;
+  color:#34f234;
+} 
+.popup .title {
+  margin:5px 0px;
+  font-size:30px;
+  font-weight:600;
+}
+.popup .description {
+  color:#222;
+  font-size:14px;
+  padding:5px;
+}
+.popup .dismiss-btn {
+  margin-top:15px;
+}
+.popup .dismiss-btn button {
+  padding:10px 20px;
+  background:#111;
+  color:#f5f5f5;
+  border:2px solid #111;
+  font-size:16px;
+  font-weight:600;
+  outline:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition: all 300ms ease-in-out;
+}
+.popup .dismiss-btn button:hover {
+  color:#111;
+  background:#f5f5f5;
+}
+.popup > div {
+  position:relative;
+  top:10px;
+  opacity:0;
+}
+.popup.active > div {
+  top:0px;
+  opacity:1;
+}
+.popup.active .icon {
+  transition: all 300ms ease-in-out 250ms;
+}
+.popup.active .title {
+  transition: all 300ms ease-in-out 300ms;
+}
+.popup.active .description {
+  transition: all 300ms ease-in-out 350ms;
+}
+.popup.active .dismiss-btn {
+  transition: all 300ms ease-in-out 400ms;
+}
+
+
+
