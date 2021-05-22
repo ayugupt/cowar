@@ -1,5 +1,14 @@
 getStateList();
 
+
+function dismissDialog() {
+    document.getElementsByClassName("popup")[0].classList.remove("active");
+}  
+
+function openPopUp() {
+    document.getElementsByClassName("popup")[0].classList.add("active");
+}  
+
 function selectByPin() {
     document.getElementById("district").style.visibility = "hidden";
     document.getElementById("state").style.visibility = "hidden";
@@ -105,6 +114,8 @@ function onLoad() {
        ;
     }).join("")}
     `;
+
+    openPopUp();
 
 }
 
