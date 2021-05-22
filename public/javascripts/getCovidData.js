@@ -111,6 +111,10 @@ function onLoad(){
     chartScript.setAttribute('src', '../javascripts/chart.js');
     document.body.appendChild(chartScript);
 
+    // dates.sort(function(a, b){
+    //     return new Date(a) - new Date(b);
+    // })
+
 
     console.log(parsedResponse)
 }
