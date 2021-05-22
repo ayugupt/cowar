@@ -1,4 +1,5 @@
 getStateList();
+
 function getVaccineSlots() {
     var state = document.getElementById("state").value;
     var district = document.getElementById("district").value;
