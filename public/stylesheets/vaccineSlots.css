@@ -1,29 +1,32 @@
 .slot {
-    outline: 5px dashed rgb(100, 8, 143);
+    outline: 5px outset rgb(100, 8, 143);
     background-color: transparent;
     width: auto;
     height: auto;
 }
 
 .slot-hosp-name {
-    
+    color: #000000;
+    font-size: larger;
 }
 
 .slot-hosp-address {
-
+    color: #576e75;
+    font-size: small;
 }
 
 .slot-hosp-slots-count {
-
-}
-
-.slot-date {
-
+    background-color: #04AA6D;
+    border-radius: 50px;
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
 .slot-filter-button {
 
 }
+
+
 
 .navbar {
   position: fixed;
@@ -330,11 +333,42 @@
   padding: 5px 10px;
   font-size: 14px;
   border-radius: 5px;
+  position: relative;
 }
 
 .blue {
   border-color: #2196F3;
   color: dodgerblue
 }
+
+.orange {
+  border-color: #ff9800;
+  color: orange;
+}
+
+.green {
+  color: #00ffa2;
+  background: #ffffff;
+  margin: 10px;
+  border: 5px solid transparent;
+}
+.green:hover {
+  background: #dcfff2;
+  color: rgb(0, 255, 115);
+  
+}
+
+.red {
+  color: #f44336;
+  background: #ffffff;
+  margin: 10px;
+  border: 5px solid transparent;
+}
+
+.red:hover {
+  background: #ffe0de;
+  color: #ff0000;
+}
+
 
 

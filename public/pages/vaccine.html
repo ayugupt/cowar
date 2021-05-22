@@ -42,7 +42,7 @@
           </a>
         </li>
   
-        <li class="nav-item">
+        <li class="nav-item" onclick="goToHome()">
           <a href="#" class="nav-link">
             <svg
               aria-hidden="true"
@@ -101,7 +101,7 @@
           </a>
         </li>
   
-        <li class="nav-item">
+        <li class="nav-item" onclick="goToCovidPrediction()">
           <a href="#" class="nav-link">
             <svg
               aria-hidden="true"
@@ -215,33 +215,21 @@
       <center>
         <h3 class="header">Check your nearest vaccination center and slots availability</h3>
         <br>
-        <button type="button" class="btn info" id="btnSearchPin">Search by PINCODE</button>
-        <button type="button" class="btn warning" id="btnSearchDistrict">Search by District</button>
+        <button type="button" class="btn info" id="btnSearchPin" onclick="selectByPin()">Search by PINCODE</button>
+        <button type="button" class="btn warning" id="btnSearchDistrict" onclick="selectByDistrict()">Search by District</button>
         <form><br>
-          <input type="number" class="input blue" id="pincode" name="pincode" placeholder="Pincode (ex: 211001)"><br>
-          <br/>
-          <input name="state" id="state" list="states" placeholder="Select State" onchange="getDistrictList(this)"><br/> 
-        <br/> <input name = "district" id="district" list="districts" placeholder="Select District">
-      </form> 
-      </center>
-      
-      
-          <datalist id="states"> 
-          </datalist>
-          <datalist id="districts">
-  
-          </datalist>
-  
-          <br/>
-          <button type="button" class="btn success" onclick="getVaccineSlots()">Search</button> 
-          <script src="../javascripts/getVaccineSlots.js"></script>  
-         
-  
-          <body>
-              <h3>Available Slots</h3>
-              <!-- table for showing data -->
-              <div id="availableSlots"></div>
+          <input type="number" class="input blue" id="pincode" name="pincode" placeholder="Pincode (ex: 211001)" minlength="6">
+          <input name="state" class="input orange" id="state" list="states" placeholder="Select State" onchange="getDistrictList(this)">
+          <input name = "district" class="input orange" id="district" list="districts" placeholder="Select District">
+      </form><br>
+      <datalist id="states"> </datalist>
+      <datalist id="districts"></datalist> 
 
+      <button type="button" class="btn success" onclick="getVaccineSlots()">Search</button> 
+      </center>
+          <script src="../javascripts/getVaccineSlots.js"></script>  
+          <body> 
+              <div id="availableSlots"></div>
     </main>
 
   </body>        
