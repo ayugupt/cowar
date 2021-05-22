@@ -4,10 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var axios = require('axios').default;
+var nodemailer = require('nodemailer')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const { response } = require('express');
+const { getMaxListeners } = require('process');
 
 var app = express();
 
@@ -21,25 +23,85 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-async function httpRequest(){
+async function getVaccinationDetails(district){
   try{
-    const url = "https://api.covid19india.org/v4/min/timeseries.min.json";
-    const response = await axios.get(url);
+    const urlVaccine =`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${district}`;
+    response = await axios.get(urlVaccine); 
     return response.data;
-    console.log(response);
   }catch(error){
-    return error;
     console.error(error);
   }
 }
 
-var jsonData = {};
+function mailUpdate(emailId, subject, body){
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth:{
+      user: 'technohack2021ayukar@gmail.com',
+      pass: 'ie5GtWk!*t2s'
+    }
+  });
 
-app.get('/', function(req, res, next){
-  httpRequest().then(function(val){
-    jsonData = JSON.stringify(val);
-    res.sendFile(path.join(__dirname, "/public/pages/home.html"));
+  let mailOptions = {
+    from: 'technohack2021ayukar@gmail.com',
+    to: emailId,
+    subject: subject,
+    text: body,
+  }
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+      console.log(error);
+    }else{
+      console.log('Email sent ' + info.response);
+    }
   })
+}
+
+function customerNotify(){
+  if(customerForNotification.length == 0){
+    clearInterval(timer);
+  }
+  else{
+    for(var i = 0; i < customerForNotification.length; i++){
+      getVaccinationDetails(customerForNotification[i].district).then(function(val){
+        if(typeof val !== 'undefined'){
+          if(true){
+            mailUpdate(customerForNotification[i].email, "Vaccine slots are available!!", "Please check");
+            i--;
+            customerForNotification.splice(i, 1);
+          }
+        }
+      })
+    }
+  }
+}
+
+function keepChecking(){
+  timer = setInterval(customerNotify, 10000);
+}
+
+async function httpRequest(){
+  try{
+    const url = "https://api.covid19india.org/v4/min/timeseries.min.json";
+    const response = await axios.get(url);
+    jsonData = JSON.stringify(response.data);
+  }catch(error){
+    throw error;
+  }
+}
+
+var jsonData = {};
+var customerForNotification = [];
+var timer;
+
+app.get('/', async function(req, res, next){
+  try{
+    await httpRequest();
+    res.sendFile(path.join(__dirname, "/public/pages/home.html"));
+  }catch(error){
+    res.send("Sorry an error occured");
+  }
 })
 
 app.get('/vaccine', function(req, res, next){
@@ -48,6 +110,12 @@ app.get('/vaccine', function(req, res, next){
 
 app.get('/getCovidData', function(req, res, next){
   res.send(jsonData);
+})
+
+app.post('/receiveNotifications', function(req, res, next){
+  customerForNotification.push(JSON.parse(req.body));
+  keepChecking();
+  console.log(req.body);
 })
 
 // app.use('/', indexRouter);
