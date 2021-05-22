@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <nav>
+        <a href="./home.html">Home</a> |
+        <a href="/css/">CSS</a> |
+        <a href="/js/">JavaScript</a> |
+        <a href="/python/">Python</a>
+      </nav>
+      
+    <h3>Check your nearest vaccination center and slots availability</h3>
+    <form>
+        <input type="number" id="pincode" name="pincode" placeholder="Pincode (ex: 211001)"><br>
+        <br/>
+        
+      <input name="state" id="state" list="states" placeholder="Select State"><br/> 
+      <br/> <input name = "district" id="district" list="districts" placeholder="Select District">
+    </form> 
+        <datalist id="states"> 
+          <option>Uttar pradesh</option> 
+          <option>Delhi</option> 
+          <option>Uttakhand</option>
+        </datalist>
+        <datalist id="districts">
+            <option>Prayagraj</option>
+        </datalist>
+
+        <br/> <button type="button" onclick="getVaccineSlots()">Search</button>   
+        <script src="../javascripts/getVaccineSlots.js"></script>
+
+        <body>
+            <h3>Available Slots</h3>
+            <!-- table for showing data -->
+            <table id="employees"></table>
+        </body>
+
+
+</html>

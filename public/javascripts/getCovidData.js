@@ -49,5 +49,3 @@ function onLoad(){
 function onError(){
     console.log("There is an error in getting the data");
 }
-
-//document.body.onload = function()
