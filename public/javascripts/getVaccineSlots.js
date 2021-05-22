@@ -73,7 +73,7 @@ function onLoad() {
               `
               <br>
               
-              <button type="button" class="btn green">
+              <button type="button" class="btn green" onclick="pageRedirect()">
                  ${session.available_capacity}
               </span>
               <br>
@@ -188,7 +188,13 @@ const themeMap = {
     bodyClass.replace(current, next);
     localStorage.setItem('theme', next);
   }
+
+  function pageRedirect() {
+    window.open("https://selfregistration.cowin.gov.in/", "Registration Cowin");
+  }
   
   document.getElementById('themeButton').onclick = toggleTheme;
+
+  
 
 
