@@ -3,6 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../stylesheets/vaccineSlots.css" />
+    
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap"
       rel="stylesheet"
@@ -211,21 +212,28 @@
       </ul>
     </nav>
     <main>
-      <h3>Check your nearest vaccination center and slots availability</h3>
-      <form>
-          <input type="number" id="pincode" name="pincode" placeholder="Pincode (ex: 211001)"><br>
+      <center>
+        <h3 class="header">Check your nearest vaccination center and slots availability</h3>
+        <br>
+        <button type="button" class="btn info" id="btnSearchPin">Search by PINCODE</button>
+        <button type="button" class="btn warning" id="btnSearchDistrict">Search by District</button>
+        <form><br>
+          <input type="number" class="input blue" id="pincode" name="pincode" placeholder="Pincode (ex: 211001)"><br>
           <br/>
-          
           <input name="state" id="state" list="states" placeholder="Select State" onchange="getDistrictList(this)"><br/> 
         <br/> <input name = "district" id="district" list="districts" placeholder="Select District">
       </form> 
+      </center>
+      
+      
           <datalist id="states"> 
           </datalist>
           <datalist id="districts">
   
           </datalist>
   
-          <br/> <button type="button" onclick="getVaccineSlots()">Search</button> 
+          <br/>
+          <button type="button" class="btn success" onclick="getVaccineSlots()">Search</button> 
           <script src="../javascripts/getVaccineSlots.js"></script>  
          
   
