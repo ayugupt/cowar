@@ -6,3 +6,9 @@ This website allows users to check available slots for vaccine in their district
 The website also features a predictor which predicts the future trends of covid cases by using linear regression model and deep learning.
 
 The website frontend has been made using HTML, CSS and ReactJS. The backend has been made using node.js. 
+
+### Setup
+```
+npm install && npm start
+```
+
