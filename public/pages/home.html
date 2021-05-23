@@ -13,14 +13,17 @@
                 font-family: 'Roboto', sans-serif;
                 background-color: #252526;
                 overflow-x: hidden;
+
             }
+
             .mainHolder{
                 display: flex;
-                flex-flow: horizontal nowrap;
-                width: 100%;
+                flex-direction: row;
+                width: 95%;
                 justify-content: space-evenly;
                 margin-bottom: 16px;
                 margin-top: 16px;
+                float:right;
             }
 
             .main{
@@ -34,7 +37,6 @@
                 font-size: 40px;
                 padding: 16px;
                 color: white;
-                margin-left: 8rem;
             }
 
             .dataTile{
@@ -86,11 +88,12 @@
             }
 
             #plotHolder{
-                width: 100vw;
+                width: 95vw;
                 display: flex;
                 flex-flow: horizontal nowrap;
                 justify-content: space-evenly;
                 margin-bottom: 16px;
+                float: right;
             }
 
             .plotWrapper{
@@ -110,9 +113,10 @@
             }
 
             #indiaMapHolder{
-                width: 100%;
+                width: 95%;
                 display: flex;
                 justify-content: center;
+                float: right;
             }
 
             #mapHighlight{
@@ -128,6 +132,7 @@
                 color: white;
                 font-size: 16px;
             }
+
         </style>
 
         <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
@@ -337,64 +342,67 @@
               </li>
             </ul>
           </nav>
-        <div class="mainHolder">
-            <div class="main">
-                <b>Country Data</b>
-                <div class="dataTile" style="color:white;">
-                    <b>Total Cases</b>
-                    <div id="totalCasesCountry"></div>
+        <!-- <div style="width: 5%; height: 10px;">
+        <div id="bodyHolder"> -->
+            <div class="mainHolder">
+                <div class="main">
+                    <b>Country Data</b>
+                    <div class="dataTile" style="color:white;">
+                        <b>Total Cases</b>
+                        <div id="totalCasesCountry"></div>
+                    </div>
+                    <div class="dataTile" style="color:yellow;">
+                        <b>Active Cases</b>
+                        <div id="activeCasesCountry"></div>
+                    </div>
+                    <div class="dataTile" style="color:green;">
+                        <b>Recoveries</b>
+                        <div id="recoveriesCountry"></div>
+                    </div>
+                    <div class="dataTile" style="color:red;">
+                        <b>Deaths</b>
+                        <div id="deathsCountry"></div>
+                    </div>
+                    
                 </div>
-                <div class="dataTile" style="color:yellow;">
-                    <b>Active Cases</b>
-                    <div id="activeCasesCountry"></div>
+
+                <div class="main">
+                    <div class="stateOption">
+                        <a id="stateName" href="#" onClick="return false;">State</a>
+                        <div class="bar"></div>
+                        <div class="menuHolder"></div>
+                    </div>
+                    <div class="dataTile" style="color:white;">
+                        <b>Total Cases</b>
+                        <div id="totalCasesState"></div>
+                    </div>
+                    <div class="dataTile" style="color:yellow;">
+                        <b>Active Cases</b>
+                        <div id="activeCasesState"></div>
+                    </div>
+                    <div class="dataTile" style="color:green;">
+                        <b>Recoveries</b>
+                        <div id="recoveriesState"></div>
+                    </div>
+                    <div class="dataTile" style="color:red;">
+                        <b>Deaths</b>
+                        <div id="deathsState"></div>
+                    </div>
                 </div>
-                <div class="dataTile" style="color:green;">
-                    <b>Recoveries</b>
-                    <div id="recoveriesCountry"></div>
-                </div>
-                <div class="dataTile" style="color:red;">
-                    <b>Deaths</b>
-                    <div id="deathsCountry"></div>
-                </div>
-                
+            </div>
+            <div id="plotHolder">
+                <div class="plotWrapper"><canvas id="plotCountry"></canvas></div>
+                <div class="plotWrapper"><canvas id="plotState"></canvas></div>
             </div>
 
-            <div class="main">
-                <div class="stateOption">
-                    <a id="stateName" href="#" onClick="return false;">State</a>
-                    <div class="bar"></div>
-                    <div class="menuHolder"></div>
-                </div>
-                <div class="dataTile" style="color:white;">
-                    <b>Total Cases</b>
-                    <div id="totalCasesState"></div>
-                </div>
-                <div class="dataTile" style="color:yellow;">
-                    <b>Active Cases</b>
-                    <div id="activeCasesState"></div>
-                </div>
-                <div class="dataTile" style="color:green;">
-                    <b>Recoveries</b>
-                    <div id="recoveriesState"></div>
-                </div>
-                <div class="dataTile" style="color:red;">
-                    <b>Deaths</b>
-                    <div id="deathsState"></div>
+            <div id="indiaMapHolder">
+                <div style="position: relative;">
+                    <object id="indiaMap" data="../images/india.svg">
+                    </object>
+                    <div id="mapHighlight"></div>
                 </div>
             </div>
-        </div>
-        <div id="plotHolder">
-            <div class="plotWrapper"><canvas id="plotCountry"></canvas></div>
-            <div class="plotWrapper"><canvas id="plotState"></canvas></div>
-        </div>
-
-        <div id="indiaMapHolder">
-            <div style="position: relative;">
-                <object id="indiaMap" data="../images/india.svg">
-                </object>
-                <div id="mapHighlight"></div>
-            </div>
-        </div>
+        <!-- </div> -->
 
         <script type="text/babel" src="../javascripts/dropDownMenu.js"></script>
         <script type="text/babel" src="../javascripts/getCovidData.js"></script>

@@ -3,6 +3,8 @@
     background-color: var(--bg-primary);
     transition: width 600ms ease;
     overflow: scroll;
+    top: 0;
+    left: 0;
   }
   
   .navbar-nav {
@@ -191,12 +193,12 @@
       --transition-speed: 600ms;
     }
   
-    body {
+    /* body {
       color: black;
       background-color: white;
       margin: 0;
       padding: 0;
-    }
+    } */
   
     body::-webkit-scrollbar {
       width: 0.25rem;
