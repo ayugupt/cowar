@@ -1,5 +1,5 @@
 # Cowar
-<img src="https://resize.indiatvnews.com/en/resize/newbucket/715_-/2021/04/covid-1618126988-1618920185.jpg"/>
+<img src="https://img.etimg.com/thumb/width-1200,height-900,imgsize-261105,resizemode-1,msid-79592510/prime/pharma-and-healthcare/2021-is-all-about-vaccine-transportation-piramal-schott-kaisha-are-ready-with-sturdy-vials.jpg"/>
 ### Get latest updates of Covid cases in India 
 ##### Features- Visualised Data, Covid Predictor , Vaccine Slot Checker
 This website allows users to check available slots for vaccine in their district. If any slots are not available, a user can register themselves with their email IDs and pin code, and as soon as a vaccine slot is available the user will be notified through email. The website also shows all the latest and historic covid data for India and its states. The historical data has been plotted to figure out the trends of total cases, active cases, recoveries and deaths. New covid cases are shown on a map of India for each state.
