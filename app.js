@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 const { response } = require('express');
 const { getMaxListeners } = require('process');
 const { TooManyRequests } = require('http-errors');
+const { parse } = require('path');
 
 var app = express();
 
@@ -30,7 +31,7 @@ async function getVaccinationDetails(district){
   try{
     let current_datetime = new Date();
     let formatted_date = current_datetime.getDate()+"-"+current_datetime.getMonth()+"-"+current_datetime.getFullYear();
-    const urlVaccine =`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=650&date=23-4-2021`;
+    const urlVaccine =`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${district}&date=${formatted_date}`;
     const agent = new https.Agent({
       rejectUnauthorized: false
   });
@@ -46,8 +47,8 @@ async function getVaccinationDetails(district){
   //     'sec-fetch-mode':'cors',
   //     'sec-fetch-site':'cross-site'
   // }}); 
-
-    return response.body;
+    var parsed = JSON.parse(response.body);
+    return parsed;
   }catch(error){
     console.error(error);
     return 0;
@@ -79,7 +80,7 @@ function mailUpdate(emailId, subject, body){
   })
 }
 
-function customerNotify(){
+async function customerNotify(){
   if(customerForNotification.length == 0 && timer !== 0){
     clearInterval(timer);
     timer = 0;
@@ -87,37 +88,40 @@ function customerNotify(){
   }
   else{
     for(var i = 0; i < customerForNotification.length; i++){
-      getVaccinationDetails(customerForNotification[i].district).then(function(val){
-        if(val !== 0){
-          var slotAvailable = false;
-          
-          var centerIndex, sessionIndex, availableDoses;
+      var val = await getVaccinationDetails(customerForNotification[i].district);
+      if(val !== 0){
+        var slotAvailable = false;
+        
+        var availableDoses, doses1, doses2, vaccineType;
+        var bodyOfEmail = "Good news!\n\nVaccine slots are available today in:\n ";
 
-          for(var j = 0; j < val["centers"].length && !slotAvailable; j++){
-            for(var k = 0; k < val["centers"][i]["sessions"] && !slotAvailable; k++){
-              if(val["centers"][i]["sessions"]["available_capacity"] > 0){
-                slotAvailable = true;
-                centerIndex = j;
-                sessionIndex = k;
-                availableDoses = val["centers"][i]["sessions"]["available_capacity"];
-              }
-            }
-          }
-          if(slotAvailable){
-          var bodyOfEmail = "Good news!\nVaccine slots are open in " + val["centers"][centerIndex]["name"] + " for today. Only " + availableDoses + " are left."
 
-            mailUpdate(customerForNotification[i].email, "Vaccine slots are available!", bodyOfEmail);
-            customerForNotification.splice(i, 1);
-            i--;
+        for(var j = 0; j < val["centers"].length; j++){
+          if(val["centers"][j]["sessions"][0]["available_capacity"] > 0){
+            slotAvailable = true;
+            availableDoses = val["centers"][j]["sessions"][0]["available_capacity"];
+            doses1 = val["centers"][j]["sessions"][0]["available_capacity_dose1"];
+            doses2 = val["centers"][j]["sessions"][0]["available_capacity_dose2"];
+            vaccineType = val["centers"][j]["sessions"][0]["vaccine"];
+            
+            bodyOfEmail = bodyOfEmail + val["centers"][j].name + "- " + availableDoses + " doses are available of " + vaccineType+"\n\n";
           }
         }
-      })
+        if(slotAvailable){
+          bodyOfEmail = bodyOfEmail + "Go to https://cowin.gov.in now to book your slot";
+          console.log("notification sent");
+
+          mailUpdate(customerForNotification[i].emailId, "Vaccine slots are available!", bodyOfEmail);
+          customerForNotification.splice(i, 1);
+          i--;
+        }
+      }
     }
   }
 }
 
 function keepChecking(){
-  timer = setInterval(customerNotify, 10000);
+  timer = setInterval(customerNotify, 5000);
 }
 
 async function httpRequest(){
