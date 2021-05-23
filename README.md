@@ -13,7 +13,7 @@ The website also features a predictor which predicts the future trends of covid 
 ### Method
 The website frontend has been made using HTML, CSS and ReactJS. The backend has been made using node.js. 
 For Covid-19 prediction we are using linear regression model , 
-Note: Currently we have can access the Covid-19 prediction model only through the [Covid-19 Predictor Notebook](https://github.com/ayugupt/technohack2021/blob/master/covid-19%20India.ipynb)) by using the below code snippets
+Note: Currently we have can access the Covid-19 prediction model only through the [Covid-19 Predictor Notebook](https://github.com/ayugupt/technohack2021/blob/master/covid-19%20India.ipynb) by using the below code snippets
 ```
 lr.predict(np.array([[737630]]))  # here '737630' refers to the ordial date time of any date
 ```
