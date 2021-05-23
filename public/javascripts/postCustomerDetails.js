@@ -12,9 +12,11 @@ function postRequest(email, district, pin){
 }
 
 function onPostRequestDone(){   
-    alert("Your details have been registered")
+    //alert("Your details have been registered")
 }
 
 function onPostRequestError(err){
-    alert("There was an error, please try again")
+    //alert("There was an error, please try again")
 }
+
+postRequest("gametvgs123@gmail.com", 650, 201301);

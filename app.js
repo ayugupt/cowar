@@ -4,12 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var axios = require('axios').default;
+var got = require('got');
+var https = require('https');
 var nodemailer = require('nodemailer')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const { response } = require('express');
 const { getMaxListeners } = require('process');
+const { TooManyRequests } = require('http-errors');
 
 var app = express();
 
@@ -25,11 +28,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 async function getVaccinationDetails(district){
   try{
-    const urlVaccine =`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${district}`;
-    response = await axios.get(urlVaccine); 
-    return response.data;
+    let current_datetime = new Date();
+    let formatted_date = current_datetime.getDate()+"-"+current_datetime.getMonth()+"-"+current_datetime.getFullYear();
+    const urlVaccine =`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=650&date=23-4-2021`;
+    const agent = new https.Agent({
+      rejectUnauthorized: false
+  });
+
+  let response = await got.get(urlVaccine);
+
+  //   let response = await axios.get(urlVaccine, {httpsAgent:agent, 
+  //   headers: {
+  //     'Access-Control-Allow-Origin': '*',
+  //     'Access-Control-Allow-Methods': '*',
+  //     'Access-Control-Allow-Credentials': true,
+  //     'Access-Control-Allow-Headers': ["Content-Type", "Authorization"],
+  //     'sec-fetch-mode':'cors',
+  //     'sec-fetch-site':'cross-site'
+  // }}); 
+
+    return response.body;
   }catch(error){
     console.error(error);
+    return 0;
   }
 }
 
@@ -59,17 +80,35 @@ function mailUpdate(emailId, subject, body){
 }
 
 function customerNotify(){
-  if(customerForNotification.length == 0){
+  if(customerForNotification.length == 0 && timer !== 0){
     clearInterval(timer);
+    timer = 0;
+
   }
   else{
     for(var i = 0; i < customerForNotification.length; i++){
       getVaccinationDetails(customerForNotification[i].district).then(function(val){
-        if(typeof val !== 'undefined'){
-          if(true){
-            mailUpdate(customerForNotification[i].email, "Vaccine slots are available!!", "Please check");
-            i--;
+        if(val !== 0){
+          var slotAvailable = false;
+          
+          var centerIndex, sessionIndex, availableDoses;
+
+          for(var j = 0; j < val["centers"].length && !slotAvailable; j++){
+            for(var k = 0; k < val["centers"][i]["sessions"] && !slotAvailable; k++){
+              if(val["centers"][i]["sessions"]["available_capacity"] > 0){
+                slotAvailable = true;
+                centerIndex = j;
+                sessionIndex = k;
+                availableDoses = val["centers"][i]["sessions"]["available_capacity"];
+              }
+            }
+          }
+          if(slotAvailable){
+          var bodyOfEmail = "Good news!\nVaccine slots are open in " + val["centers"][centerIndex]["name"] + " for today. Only " + availableDoses + " are left."
+
+            mailUpdate(customerForNotification[i].email, "Vaccine slots are available!", bodyOfEmail);
             customerForNotification.splice(i, 1);
+            i--;
           }
         }
       })
@@ -93,7 +132,7 @@ async function httpRequest(){
 
 var jsonData = {};
 var customerForNotification = [];
-var timer;
+var timer = 0;
 
 app.get('/', async function(req, res, next){
   try{
@@ -113,8 +152,10 @@ app.get('/getCovidData', function(req, res, next){
 })
 
 app.post('/receiveNotifications', function(req, res, next){
-  customerForNotification.push(JSON.parse(req.body));
-  keepChecking();
+  customerForNotification.push(req.body);
+  if(timer === 0){
+    keepChecking();
+  }
   console.log(req.body);
 })
 
