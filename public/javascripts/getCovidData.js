@@ -124,9 +124,9 @@ function onError(){
 }
 
 function goToVaccine() {
-    window.location.href="vaccine.html";
+    window.location.href="vaccine";
 }
 
 function goToCovidPrediction() {
-    window.location.href="covidPredictor.html";
+    window.location.href="covidPredictor";
 }

@@ -27,11 +27,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-async function getVaccinationDetails(district){
+async function getVaccinationDetails(pin){
   try{
     let current_datetime = new Date();
     let formatted_date = current_datetime.getDate()+"-"+current_datetime.getMonth()+"-"+current_datetime.getFullYear();
-    const urlVaccine =`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${district}&date=${formatted_date}`;
+    const urlVaccine =`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=${pin}&date=${formatted_date}`;
     const agent = new https.Agent({
       rejectUnauthorized: false
   });
@@ -88,7 +88,7 @@ async function customerNotify(){
   }
   else{
     for(var i = 0; i < customerForNotification.length; i++){
-      var val = await getVaccinationDetails(customerForNotification[i].district);
+      var val = await getVaccinationDetails(customerForNotification[i].pinCode);
       if(val !== 0){
         var slotAvailable = false;
         

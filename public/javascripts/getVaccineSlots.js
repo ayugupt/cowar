@@ -17,11 +17,11 @@ function selectByPin() {
 }
 
 function goToHome() {
-    window.location.href="home.html";
+    window.location.href="home";
 }
 
 function goToCovidPrediction() {
-    window.location.href="covidPredictor.html";
+    window.location.href="covidPredictor";
 }
 
 function selectByDistrict() {
